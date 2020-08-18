@@ -52,3 +52,8 @@ def send_keystroke(keyboard_path, control_keys, hid_keycode):
 
 def release_keys(keyboard_path):
     _write_to_hid_interface_with_timeout(keyboard_path, [0] * 8)
+
+
+def send_mouse_position(mouse_path, x, y):
+    # TODO(mtlynch): Implement this
+    pass
