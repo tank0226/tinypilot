@@ -1,4 +1,7 @@
+import logging
 import threading
+
+logger = logging.getLogger(__name__)
 
 
 class Error(Exception):
@@ -55,5 +58,12 @@ def release_keys(keyboard_path):
 
 
 def send_mouse_position(mouse_path, x, y):
-    # TODO(mtlynch): Implement this
-    pass
+    logger.info('sending %d, %d to %s', x, y, mouse_path)
+    buf = [0] * 5
+    buf[0] = 0  # TODO: implement buttons
+    buf[1] = x & 0xff
+    buf[2] = (x >> 8) & 0xff
+    buf[3] = y & 0xff
+    buf[4] = (y >> 8) & 0xff
+    logger.info("buf=%s", buf)
+    _write_to_hid_interface_with_timeout(mouse_path, buf)

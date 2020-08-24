@@ -262,6 +262,14 @@ function onKeyUp(evt) {
   }
 }
 
+function onRemoteScreenMouseMove(evt) {
+  console.log(evt);
+  keyboardSocket.emit("mouseMovement", {
+    x: evt.clientX,
+    y: evt.clientY,
+  });
+}
+
 function onManualModifierButtonClicked(evt) {
   toggleManualModifier(evt.target.getAttribute("modifier"));
   if (evt.target.classList.contains("pressed")) {
@@ -282,6 +290,9 @@ function onDisplayHistoryChanged(evt) {
 
 document.querySelector("body").addEventListener("keydown", onKeyDown);
 document.querySelector("body").addEventListener("keyup", onKeyUp);
+document
+  .getElementById("remote-screen")
+  .addEventListener("mousemove", onRemoteScreenMouseMove);
 document
   .getElementById("display-history-checkbox")
   .addEventListener("change", onDisplayHistoryChanged);
